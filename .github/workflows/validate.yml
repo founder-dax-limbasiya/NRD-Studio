@@ -22,3 +22,5 @@ jobs:
         run: node --check app.js
       - name: Run project smoke checks
         run: node scripts/check-project.mjs
+      - name: Test subtitle parser
+        run: node scripts/test-subtitles.mjs

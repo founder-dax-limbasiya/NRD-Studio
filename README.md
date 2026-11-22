@@ -55,6 +55,11 @@ node scripts/check-project.mjs
 
 GitHub Actions runs these checks on pushes and pull requests.
 
+## Roadmap and integration research
+
+- Development plan: [docs/ROADMAP.md](docs/ROADMAP.md)
+- Publishing engine evaluation: [docs/PUBLISHING-INTEGRATION-RESEARCH.md](docs/PUBLISHING-INTEGRATION-RESEARCH.md)
+
 ## Architecture direction
 
 Keep the product modular:

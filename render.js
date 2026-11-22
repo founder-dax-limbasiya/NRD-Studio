@@ -2,6 +2,7 @@
   "use strict";
   const $ = selector => document.querySelector(selector);
   let lastVideoUrl = "";
+  let cancelRequested = false;
 
   function notify(message) {
     if (window.NRDToast) window.NRDToast(message);
@@ -64,7 +65,9 @@
       notify("This browser does not support local WebM recording. Try current Chrome on Android.");
       return;
     }
+    cancelRequested = false;
     button.disabled = true;
+    $("#cancelRenderButton").hidden = false;
     $("#renderProgressWrap").hidden = false;
     $("#renderResult").hidden = true;
     setProgress(0,"Preparing scene images…");
@@ -73,6 +76,7 @@
     let stream;
     try {
       for (let index=0; index<project.scenes.length; index++) {
+        if (cancelRequested) { const error = new Error("Render cancelled"); error.name = "AbortError"; throw error; }
         const scene = project.scenes[index];
         const asset = await window.NRDProjects.getAsset(scene.assetId);
         if (!asset?.blob) throw new Error("Missing image for scene: " + (scene.title || index+1));
@@ -111,6 +115,7 @@
         const direction = sceneIndex % 2 === 0 ? 1 : -1;
         setProgress(Math.round(completedFrames/totalFrames*100),"Rendering scene " + (sceneIndex+1) + " of " + loaded.length);
         for (let frame=0; frame<frames; frame++) {
+          if (cancelRequested) { const error = new Error("Render cancelled"); error.name = "AbortError"; throw error; }
           const progress = frames > 1 ? frame/(frames-1) : 1;
           const localTime = frame/fps;
           context.fillStyle = "#000";
@@ -128,6 +133,7 @@
           await sleep(interval);
         }
       }
+      if (cancelRequested) { const error = new Error("Render cancelled"); error.name = "AbortError"; throw error; }
       setProgress(100,"Finalising video…");
       recorder.stop();
       await stopped;
@@ -144,14 +150,20 @@
       if (recorder && recorder.state !== "inactive") {
         try { recorder.stop(); } catch {}
       }
-      setProgress(0,"Render did not complete");
-      notify(error.message || "Could not render this project");
+      setProgress(0,error.name === "AbortError" ? "Render cancelled" : "Render did not complete");
+      notify(error.name === "AbortError" ? "Render cancelled" : (error.message || "Could not render this project"));
     } finally {
       stream?.getTracks().forEach(track => track.stop());
       loaded.forEach(item => URL.revokeObjectURL(item.url));
       button.disabled = false;
+      $("#cancelRenderButton").hidden = true;
     }
   }
   $("#renderVideoButton")?.addEventListener("click",renderProject);
-  window.NRDRenderer = { renderProject, chooseMimeType };
+  $("#cancelRenderButton")?.addEventListener("click",() => {
+    if (!$("#renderVideoButton")?.disabled) return;
+    cancelRequested = true;
+    notify("Stopping render…");
+  });
+  window.NRDRenderer = { renderProject, chooseMimeType, outputDimensions };
 })();

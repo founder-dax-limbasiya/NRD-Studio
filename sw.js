@@ -1,5 +1,5 @@
-const CACHE_NAME = "nrd-studio-shell-v2";
-const SHELL = ["/", "/index.html", "/styles.css", "/app.js", "/subtitles.js", "/projects.js", "/manifest.webmanifest", "/assets/icon.svg"];
+const CACHE_NAME = "nrd-studio-shell-v3";
+const SHELL = ["/", "/index.html", "/styles.css", "/app.js", "/subtitles.js", "/projects.js", "/render.js", "/manifest.webmanifest", "/assets/icon.svg"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(SHELL)));
   self.skipWaiting();

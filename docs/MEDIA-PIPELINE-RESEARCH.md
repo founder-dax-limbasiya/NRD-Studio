@@ -92,7 +92,7 @@ The web UI must not claim that a file has been exported until the native rendere
 - Android Media3 Transformer API: https://developer.android.com/reference/androidx/media3/transformer/Transformer
 - AndroidX Media releases: https://github.com/androidx/media/releases
 - Android Gradle Plugin compatibility: https://developer.android.com/build/releases/about-agp
-- Android Gradle Plugin 9.5 release notes: https://developer.android.com/build/releases/agp-9-5-0-release-notes
+- Android Gradle Plugin 9.6 release notes: https://developer.android.com/build/releases/agp-9-6-0-release-notes
 - AndroidX Media license: https://github.com/androidx/media/blob/release/LICENSE
 - Official FFmpegKitNext repository: https://github.com/arthenica/ffmpeg-kit-next
 - FFmpegKitNext Android build guide: https://github.com/arthenica/ffmpeg-kit-next/tree/main/android

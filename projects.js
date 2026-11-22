@@ -5,7 +5,7 @@
   const DB_VERSION = 1;
   const $ = selector => document.querySelector(selector);
   let projects = loadProjects();
-  let activeProjectId = "";
+  let activeProjectId = localStorage.getItem("nrd-active-project") || "";
   let objectUrls = [];
 
   function loadProjects() {
@@ -107,6 +107,7 @@
     const project = projects.find(item => item.id === id);
     if (!project) return;
     activeProjectId = id;
+    localStorage.setItem("nrd-active-project", id);
     $("#storyboardTitle").textContent = project.name;
     $("#storyboardBrief").textContent = project.brief || project.type + " · Arrange visual references and shot notes.";
     $("#storyboardFormat").textContent = project.format;
@@ -206,7 +207,7 @@
     const project = projects.find(item => item.id === id);
     if (!project || !confirm('Delete "' + project.name + '" and its storyboard? Media files in your library will remain.')) return;
     projects = projects.filter(item => item.id !== id);
-    if (activeProjectId === id) activeProjectId = "";
+    if (activeProjectId === id) { activeProjectId = ""; localStorage.removeItem("nrd-active-project"); }
     saveProjects();
     toast("Project deleted");
   }
@@ -237,6 +238,7 @@
   });
   document.querySelectorAll('[data-page="projects"]').forEach(button => button.addEventListener("click",renderProjects));
   renderProjects();
+  if (location.hash === "#storyboard" && activeProjectId) openStoryboard(activeProjectId);
   window.NRDProjects = {
     list:() => projects.map(project => structuredClone(project)),
     exportData:() => projects.map(project => structuredClone(project))

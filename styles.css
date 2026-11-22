@@ -109,3 +109,7 @@
   .render-download-row{align-items:flex-start;flex-direction:column}
   .render-download-row .primary-button{width:100%}
 }
+
+.render-progress-top{align-items:center}
+.render-cancel{padding:6px 10px;font-size:9px}
+.render-cancel[hidden]{display:none}

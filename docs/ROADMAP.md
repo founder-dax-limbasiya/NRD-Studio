@@ -27,7 +27,7 @@ This roadmap reflects the current repository state. A checked item means the fea
 
 - [ ] Compare Android-compatible and browser-compatible media engines.
 - [ ] Verify code and model licences independently.
-- [ ] Add a real render/export path with progress, cancellation and resume.
+- [x] Browser-based local silent WebM slideshow prototype with pan/zoom, crossfade and progress.\n- [ ] Native Android hardware-accelerated MP4 render pipeline with background progress, cancellation and resume.
 - [ ] Add optional speech-to-text and TTS adapters after model/voice licence review.
 - [ ] Provide a useful non-AI fallback for every optional AI step.
 

@@ -41,7 +41,7 @@ The Channels screen is informational only. It does not connect accounts or send 
 - Drafts and planner reminders are stored in this browser's local storage.
 - Media files are stored in IndexedDB for this browser on this device.
 - Clearing browser data may remove locally stored project data.
-- The workspace backup exports drafts and planner reminders; media binaries are not included in that JSON backup.
+- The workspace backup exports drafts (including subtitle cues), planner reminders and project/storyboard metadata; media binaries are not included in that JSON backup.
 - Do not store API secrets or OAuth tokens in browser code or commit them to the repository.
 
 ## Development checks

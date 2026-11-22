@@ -577,6 +577,11 @@ public final class MainActivity extends Activity {
         }
         File output = new File(outputDir, safeName + "-" + System.currentTimeMillis() + ".mp4");
 
+        if (renderedFile != null && renderedFile.exists()) {
+            // The previous preview is no longer needed once a new render starts.
+            //noinspection ResultOfMethodCallIgnored
+            renderedFile.delete();
+        }
         renderedFile = null;
         preview.setVisibility(View.GONE);
         saveButton.setVisibility(View.GONE);
@@ -689,9 +694,7 @@ public final class MainActivity extends Activity {
                 if (result == null) {
                     statusText.setText("MP4 saved successfully to your selected folder.");
                     toast("Video saved.");
-                    //noinspection ResultOfMethodCallIgnored
-                    source.delete();
-                    renderedFile = null;
+                    // Keep the temporary copy available so the user can replay the preview.
                 } else {
                     statusText.setText("The video could not be saved.");
                     toast(result);

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101114">
+  <meta name="description" content="NRD Studio — a mobile-first workspace for creating and publishing content.">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <title>NRD Studio</title>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="NRD Studio home">
+        <span class="brand-mark">N</span><span class="brand-name">NRD<span>STUDIO</span></span>
+      </a>
+      <div class="workspace-switch"><span class="workspace-avatar">D</span><span><b>My workspace</b><small>Personal studio</small></span><span class="chevron">⌄</span></div>
+      <nav class="nav-list">
+        <p class="nav-label">WORKSPACE</p>
+        <button class="nav-item active" data-page="home"><span>⌂</span>Overview</button>
+        <button class="nav-item" data-page="studio"><span>✳</span>Content studio</button>
+        <button class="nav-item" data-page="library"><span>▧</span>Media library</button>
+        <button class="nav-item" data-page="calendar"><span>▦</span>Planner</button>
+        <p class="nav-label nav-label-spaced">PUBLISH</p>
+        <button class="nav-item" data-page="channels"><span>◎</span>Channels</button>
+        <button class="nav-item" data-page="settings"><span>⚙</span>Settings</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="local-note"><span class="status-dot"></span><span><b>Local workspace</b><small>Your drafts stay on this device</small></span></div>
+        <div class="profile-row"><div class="profile-avatar">D</div><div><b>Creator</b><small>Personal account</small></div><span class="more">···</span></div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark">N</span><b>NRD STUDIO</b></div>
+        <div class="breadcrumb"><span>Workspace</span><span class="slash">/</span><b id="pageCrumb">Overview</b></div>
+        <div class="top-actions"><span class="local-pill"><i></i> Local mode</span><button class="icon-button" id="helpButton" aria-label="Help">?</button><div class="top-avatar">D</div></div>
+      </header>
+
+      <div class="page-wrap">
+        <section class="page active" id="page-home">
+          <div class="welcome-row"><div><p class="eyebrow">YOUR CREATOR WORKSPACE</p><h1>Make something <em>worth watching.</em></h1><p class="subhead">Plan, prepare and organise your content from one calm workspace.</p></div><button class="primary-button" data-go="studio">＋ <span>New content</span></button></div>
+          <div class="notice"><span class="notice-icon">✦</span><div><b>Your studio is ready.</b><span>Drafts and media are stored locally on this device. Connect publishing accounts only when you are ready.</span></div><button class="notice-close" aria-label="Dismiss">×</button></div>
+          <div class="stat-grid">
+            <article class="stat-card"><span class="stat-label">Drafts</span><strong id="draftCount">0</strong><small>Saved content ideas</small><span class="stat-glyph">✎</span></article>
+            <article class="stat-card"><span class="stat-label">Media assets</span><strong id="assetCount">0</strong><small>Images and videos added</small><span class="stat-glyph">▧</span></article>
+            <article class="stat-card"><span class="stat-label">Planned posts</span><strong id="plannedCount">0</strong><small>Awaiting your review</small><span class="stat-glyph">◷</span></article>
+          </div>
+          <div class="section-heading"><div><p class="eyebrow">PICK UP WHERE YOU LEFT OFF</p><h2>Recent work</h2></div><button class="text-button" data-go="studio">Open studio <span>→</span></button></div>
+          <div class="recent-grid" id="recentGrid"><div class="empty-card"><span class="empty-icon">✳</span><b>Your next idea starts here</b><p>Create a draft to see it appear in your workspace.</p><button class="secondary-button" data-go="studio">Create first draft</button></div></div>
+          <div class="bottom-grid">
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">QUICK START</p><h3>Make your next post</h3></div><span class="panel-icon">↗</span></div><p class="panel-copy">Start with a topic, shape your script, and prepare the assets you need.</p><button class="secondary-button full-button" data-go="studio">Open content studio <span>→</span></button></article>
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">PUBLISHING</p><h3>Connect your channels</h3></div><span class="panel-icon">◎</span></div><p class="panel-copy">Account connections are not active yet. Review the supported integrations and permissions first.</p><button class="secondary-button full-button" data-go="channels">View channels <span>→</span></button></article>
+          </div>
+        </section>
+
+        <section class="page" id="page-studio">
+          <div class="page-title-row"><div><p class="eyebrow">CONTENT WORKSPACE</p><h1>Content studio</h1><p class="subhead">Shape an idea into a draft that's ready for production.</p></div><span class="beta-pill">LOCAL WORKFLOW</span></div>
+          <div class="studio-layout">
+            <div class="panel editor-panel">
+              <label class="field-label" for="contentTitle">Working title</label><input id="contentTitle" class="text-input" placeholder="Give this idea a name…" maxlength="100">
+              <div class="field-two"><div><label class="field-label" for="platformSelect">Platform</label><select id="platformSelect" class="text-input"><option>Instagram</option><option>YouTube</option><option>TikTok</option><option>Facebook</option><option>LinkedIn</option><option>X</option><option>Other</option></select></div><div><label class="field-label" for="formatSelect">Format</label><select id="formatSelect" class="text-input"><option>Short video</option><option>Reel</option><option>YouTube video</option><option>Carousel</option><option>Post</option><option>Story</option></select></div></div>
+              <label class="field-label" for="contentIdea">Idea, brief or script</label><textarea id="contentIdea" class="text-input textarea" rows="9" placeholder="What do you want to create? Add your idea, rough script, key points or a full draft…"></textarea>
+              <div class="editor-footer"><span class="muted" id="wordCount">0 words</span><div class="button-row"><button class="secondary-button" id="outlineButton">Create outline</button><button class="primary-button" id="saveDraftButton">Save draft</button></div></div>
+              <p class="microcopy">Outline generation currently uses a simple local text helper. AI generation will be enabled only after a real provider or local model is configured.</p>
+            </div>
+            <aside class="panel side-panel"><p class="eyebrow">CONTENT CHECKLIST</p><h3>Before production</h3><div class="check-row"><span class="check-number">01</span><div><b>Clear message</b><small>One idea your audience should remember.</small></div></div><div class="check-row"><span class="check-number">02</span><div><b>Strong opening</b><small>Give viewers a reason to stay.</small></div></div><div class="check-row"><span class="check-number">03</span><div><b>Useful ending</b><small>Finish with a takeaway or next step.</small></div></div><div class="side-divider"></div><div class="side-status"><span class="status-dot"></span><div><b>Draft mode</b><small>Nothing is published automatically.</small></div></div></aside>
+          </div>
+          <div class="panel outline-panel" id="outlinePanel" hidden><div class="panel-heading"><div><p class="eyebrow">LOCAL OUTLINE</p><h3>Suggested structure</h3></div><button class="icon-button" id="closeOutline" aria-label="Close outline">×</button></div><div id="outlineContent"></div></div>
+        </section>
+
+        <section class="page" id="page-library">
+          <div class="page-title-row"><div><p class="eyebrow">YOUR ASSETS</p><h1>Media library</h1><p class="subhead">Keep the images, clips and audio for your content in one place.</p></div><label class="primary-button upload-button">＋ Add media<input id="mediaInput" type="file" accept="image/*,video/*,audio/*" multiple hidden></label></div>
+          <div class="library-toolbar"><span id="libraryCount">0 assets</span><span class="muted">Stored in this browser on this device</span></div>
+          <div class="asset-grid" id="assetGrid"><div class="empty-card"><span class="empty-icon">▧</span><b>Your library is empty</b><p>Add images, video clips or audio files to start organising your media.</p><label class="secondary-button">Add your first files<input type="file" accept="image/*,video/*,audio/*" multiple hidden id="emptyMediaInput"></label></div></div>
+        </section>
+
+        <section class="page" id="page-calendar">
+          <div class="page-title-row"><div><p class="eyebrow">CONTENT PLANNER</p><h1>Planner</h1><p class="subhead">Keep upcoming content organised. Scheduling here is a local reminder, not a live publish job.</p></div><button class="primary-button" data-go="studio">＋ New draft</button></div>
+          <div class="panel planner-panel"><div class="panel-heading"><div><p class="eyebrow">YOUR QUEUE</p><h3>Planned content</h3></div><span class="beta-pill">LOCAL ONLY</span></div><div id="plannedList" class="planned-list"><div class="empty-inline">Nothing planned yet. Save a draft and add a reminder date to organise it here.</div></div></div>
+        </section>
+
+        <section class="page" id="page-channels">
+          <div class="page-title-row"><div><p class="eyebrow">DISTRIBUTION</p><h1>Channels</h1><p class="subhead">Publishing integrations require official platform permissions and OAuth setup.</p></div></div>
+          <div class="notice notice-warn"><span class="notice-icon">!</span><div><b>Publishing is not connected.</b><span>No social account is linked and no post will be sent from this workspace. Each platform needs its own approved API access.</span></div></div>
+          <div class="channel-grid" id="channelGrid"></div>
+        </section>
+
+        <section class="page" id="page-settings">
+          <div class="page-title-row"><div><p class="eyebrow">PREFERENCES</p><h1>Settings</h1><p class="subhead">Manage this device's local workspace.</p></div></div>
+          <div class="panel settings-panel"><div class="settings-row"><div><b>Workspace storage</b><small>Drafts are stored in this browser. Media files use local browser storage.</small></div><span class="settings-value">On device</span></div><div class="settings-row"><div><b>Export workspace data</b><small>Download a JSON backup of your drafts and planned posts.</small></div><button class="secondary-button" id="backupButton">Export backup</button></div><div class="settings-row"><div><b>Clear local drafts</b><small>Remove saved drafts and planned post reminders from this device.</small></div><button class="danger-button" id="clearButton">Clear drafts</button></div><div class="settings-row"><div><b>App version</b><small>Early foundation build.</small></div><span class="settings-value">0.1.0</span></div></div>
+        </section>
+      </div>
+      <footer class="footer"><span>NRD STUDIO</span><span>Build with intention.</span></footer>
+    </main>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobile navigation"><button class="active" data-page="home"><span>⌂</span><small>Home</small></button><button data-page="studio"><span>✳</span><small>Studio</small></button><button data-page="library"><span>▧</span><small>Library</small></button><button data-page="calendar"><span>▦</span><small>Planner</small></button><button data-page="channels"><span>◎</span><small>Channels</small></button></nav>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>

@@ -241,6 +241,8 @@
   if (location.hash === "#storyboard" && activeProjectId) openStoryboard(activeProjectId);
   window.NRDProjects = {
     list:() => projects.map(project => structuredClone(project)),
-    exportData:() => projects.map(project => structuredClone(project))
+    exportData:() => projects.map(project => structuredClone(project)),
+    getActiveProject:() => { const project=currentProject(); return project ? structuredClone(project) : null; },
+    getAsset:async id => { const assets=await openAssets(); return assets.find(asset => asset.id===id) || null; }
   };
 })();

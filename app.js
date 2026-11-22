@@ -31,7 +31,7 @@ function timeLabel(value) {
 function navigate(page) {
   $$(".page").forEach(node => node.classList.toggle("active", node.id === `page-${page}`));
   $$("[data-page]").forEach(node => node.classList.toggle("active", node.dataset.page === page));
-  const labels = { home:"Overview", studio:"Content studio", library:"Media library", calendar:"Planner", channels:"Channels", settings:"Settings" };
+  const labels = { home:"Overview", studio:"Content studio", projects:"Projects", storyboard:"Storyboard", library:"Media library", calendar:"Planner", channels:"Channels", settings:"Settings" };
   $("#pageCrumb").textContent = labels[page] || "Overview";
   window.location.hash = page;
   window.scrollTo({ top:0, behavior:"smooth" });
@@ -73,6 +73,7 @@ function draftFromEditor() {
     platform: $("#platformSelect").value,
     format: $("#formatSelect").value,
     body: $("#contentIdea").value.trim(),
+    subtitles: window.NRDSubtitles ? window.NRDSubtitles.getCues() : [],
     updatedAt: new Date().toISOString()
   };
 }
@@ -97,6 +98,7 @@ function openDraft(id) {
   $("#platformSelect").value = draft.platform;
   $("#formatSelect").value = draft.format;
   $("#contentIdea").value = draft.body;
+  if (window.NRDSubtitles) window.NRDSubtitles.setCues(draft.subtitles || []);
   $("#wordCount").textContent = `${draft.body.trim().split(/\s+/).filter(Boolean).length} words`;
   navigate("studio");
 }
@@ -138,25 +140,6 @@ function srtTime(milliseconds) {
   const millis = value % 1000;
   return `${String(hours).padStart(2,"0")}:${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")},${String(millis).padStart(3,"0")}`;
 }
-$("#exportSrtButton").addEventListener("click", () => {
-  const script = $("#contentIdea").value.trim();
-  if (!script) { showToast("Add a script before exporting subtitles"); return; }
-  const lines = script.split(/(?<=[.!?])\\s+|\\n+/).map(line => line.trim()).filter(Boolean);
-  const srt = lines.map((line,index) => {
-    const start = index * 3500;
-    const end = start + 3000;
-    return `${index + 1}\\n${srtTime(start)} --> ${srtTime(end)}\\n${line}`;
-  }).join("\\n\\n");
-  const blob = new Blob([srt], { type:"application/x-subrip;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = `${($("#contentTitle").value.trim() || "nrd-captions").replace(/[^a-z0-9-_]+/gi,"-")}.srt`;
-  link.click();
-  URL.revokeObjectURL(url);
-  showToast("SRT draft exported — adjust timings to match your final audio");
-});
-
 $("#closeOutline").addEventListener("click", () => $("#outlinePanel").hidden = true);
 function resetEditor() {
   $("#editingId").value = "";
@@ -166,6 +149,7 @@ function resetEditor() {
   $("#formatSelect").value = "Short video";
   $("#wordCount").textContent = "0 words";
   $("#outlinePanel").hidden = true;
+  if (window.NRDSubtitles) window.NRDSubtitles.setCues([]);
 }
 const newContent = document.querySelectorAll('[data-go="studio"]');
 newContent.forEach(button => button.addEventListener("click", () => {

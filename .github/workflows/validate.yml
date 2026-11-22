@@ -29,3 +29,5 @@ jobs:
         run: node scripts/check-project.mjs
       - name: Test subtitle parser
         run: node scripts/test-subtitles.mjs
+      - name: Test renderer capabilities
+        run: node scripts/test-render.mjs

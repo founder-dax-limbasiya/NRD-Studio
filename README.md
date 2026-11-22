@@ -22,7 +22,7 @@ This is a static web application; there is no build step and no runtime package 
 - Local planner reminders (these do not publish content).
 - Local project library with scene storyboards, scene order, durations and image references.
 - Editable subtitle cues with SRT/VTT import, SRT export and estimated starter timings from a script.
-- Browser Canvas slideshow export to WebM with gentle pan/zoom, crossfade and render progress (silent prototype; browser support required).
+- Browser Canvas slideshow export to WebM with gentle pan/zoom, crossfade, progress and cancellation (silent prototype; browser support required).
 - JSON backup of drafts, subtitle cues, reminders and project/storyboard metadata.
 
 ## Not connected or not implemented yet
@@ -35,7 +35,7 @@ This is a static web application; there is no build step and no runtime package 
 - Full editor timeline for video/audio clips, transitions and layered tracks.
 - Social account OAuth, automatic publishing, analytics or cloud sync.
 
-The current WebM renderer is a browser prototype. It requires image assets on every scene, uses the phone's browser and may be slow or unsupported on some devices. It exports no audio. Keep NRD open while rendering. No output is produced until the browser confirms the recording is complete.
+The current WebM renderer is a browser prototype. It requires image assets on every scene, uses the phone's browser and may be slow or unsupported on some devices. It exports no audio. Keep NRD open while rendering. You can cancel an in-progress render. No output is produced until the browser confirms the recording is complete.
 
 The Channels screen is informational only. It does not connect accounts or send posts. Each social platform has separate app-review, permission, account-type and API requirements. Do not treat a locally planned reminder as a platform schedule.
 
@@ -59,9 +59,11 @@ node --check subtitles.js
 node --check render.js
 node --check sw.js
 node scripts/check-project.mjs
+node scripts/test-subtitles.mjs
+node scripts/test-render.mjs
 ```
 
-GitHub Actions runs the syntax checks and project smoke checks on pushes and pull requests.
+GitHub Actions runs syntax checks, project smoke checks, subtitle parser tests and renderer capability/dimension tests on pushes and pull requests.
 
 ## Roadmap and integration research
 

@@ -10,16 +10,14 @@ This roadmap reflects the current repository state. A checked item means the fea
 - [x] Rule-based outline helper (not AI generation).
 - [x] Image/video/audio library using IndexedDB.
 - [x] Local planning reminders (not social scheduling).
-- [x] Script text to starter SRT export (timings need editorial adjustment).
-- [x] JSON backup for drafts and reminders.
 - [x] Offline shell caching and basic CI smoke checks.
 
 ## Milestone 1 — Production workspace
 
-- [ ] First-class projects with multiple content pieces.
-- [ ] Scene/shot and asset organisation.
+- [x] First-class local projects with independent storyboards.
+- [x] Scene/shot organisation, ordering, durations and media-library image references.
 - [ ] Per-platform content variants and safe preview.
-- [ ] Subtitle editor with timing and SRT/VTT import/export.
+- [x] Editable subtitle cues with timing and SRT/VTT import/export.
 - [ ] Voiceover asset workflow and audio track organisation.
 - [ ] Export presets and production checklist.
 
@@ -27,7 +25,8 @@ This roadmap reflects the current repository state. A checked item means the fea
 
 - [ ] Compare Android-compatible and browser-compatible media engines.
 - [ ] Verify code and model licences independently.
-- [x] Browser-based local silent WebM slideshow prototype with pan/zoom, crossfade and progress.\n- [ ] Native Android hardware-accelerated MP4 render pipeline with background progress, cancellation and resume.
+- [x] Browser-based local silent WebM slideshow prototype with pan/zoom, crossfade and progress.
+- [ ] Native Android hardware-accelerated MP4 render pipeline with background progress, cancellation and resume.
 - [ ] Add optional speech-to-text and TTS adapters after model/voice licence review.
 - [ ] Provide a useful non-AI fallback for every optional AI step.
 
@@ -48,10 +47,11 @@ This roadmap reflects the current repository state. A checked item means the fea
 - Never promise free, unlimited hosting, GPU time, storage or API quota.
 - Keep media files out of JSON metadata backups unless the user explicitly exports the binary assets.
 - Keep provider credentials out of browser storage, frontend bundles and Git history.
+- Clearly label browser rendering limits and unsupported formats.
 
 ## Immediate next engineering work
 
-1. Introduce a project entity and a multi-step content workflow.
-2. Add proper subtitle timing/editing instead of only starter SRT timings.
-3. Audit Android/browser media processing options before selecting the rendering engine.
+1. Add automated tests for scene/project persistence, subtitle parsing and media-render capability checks.
+2. Build a native Android render module using AndroidX Media3 Transformer after Gradle/SDK compatibility is pinned.
+3. Add audio track selection and mixing with a real preview workflow.
 4. Prototype one secure server-side publishing adapter only after the deployment/storage choice is known.

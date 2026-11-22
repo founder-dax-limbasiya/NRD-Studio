@@ -27,7 +27,7 @@ This roadmap reflects the current repository state. A checked item means the fea
 - [ ] Verify code and model licences independently.
 - [x] Browser-based local silent WebM slideshow prototype with pan/zoom, crossfade, progress and cancellation.
 - [x] Automated checks for subtitle parsing, output dimensions and browser recording-codec capability.
-- [ ] Native Android hardware-accelerated MP4 renderer — prototype code and build workflow added; awaiting CI compilation and physical-device tests.
+- [ ] Native Android Media3 MP4 renderer — prototype code and build workflow added; awaiting CI compilation and physical-device tests.
 - [ ] Background rendering, process-death recovery and resumable jobs.
 - [ ] Add optional speech-to-text and TTS adapters after model/voice licence review.
 - [ ] Provide a useful non-AI fallback for every optional AI step.

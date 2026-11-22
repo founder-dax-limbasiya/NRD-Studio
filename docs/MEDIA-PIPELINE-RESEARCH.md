@@ -2,7 +2,7 @@
 
 **Reviewed:** 23 November 2026  
 **Scope:** Android-first, local video export for the NRD mobile creator workflow.  
-**Status:** Research decision only. The repository currently has no Android Gradle project or native media library integrated.
+**Status:** A first Java/Media3 native Android prototype has now been added under android/. Its remote Gradle build and physical-device behavior are not yet verified.
 
 ## 1. Current prototype
 
@@ -39,7 +39,7 @@ Verified facts:
 
 Use Media3 Transformer 1.11.1 as the first native Android rendering candidate. It is a better fit than bundling a general-purpose FFmpeg binary for the initial Android export workflow, because the target is local Android device export and the project can use Android's media codecs and OpenGL.
 
-It is not yet integrated or tested in this repository. The repository does not yet contain Gradle wrapper files or an Android app module. The pinned prototype baseline is AGP 9.5.0 + Gradle 9.6.0 + JDK 17 + Media3 1.11.1. Before adoption, create the native Android module, compile it in CI and run on at least one physical Android device. Test portrait/landscape/square output, image durations, effect behavior, encoder compatibility and memory use.
+The native module now uses the pinned prototype baseline AGP 9.6.0 + Gradle 9.8.2 + JDK 17 + Media3 1.11.1. It is a Java app module under android/, with a GitHub Actions debug-APK build. The CI compile and physical Android device run must pass before calling it device-ready. Test portrait/landscape/square output, image durations, effect behavior, encoder compatibility and memory use.
 
 ## 3. FFmpeg option: FFmpegKitNext
 

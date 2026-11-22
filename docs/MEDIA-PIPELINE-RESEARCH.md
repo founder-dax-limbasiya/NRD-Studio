@@ -32,7 +32,7 @@ Verified facts:
 ### Verified version and Android build baseline (23 November 2026)
 
 - The AndroidX releases page shows Media3 1.11.1 as the latest stable release; 1.12.0-beta01 was published on 11 November 2026 and is a pre-release. Pin 1.11.1 for the first native prototype instead of adopting the beta.
-- Android Gradle Plugin 9.5.0 requires Gradle 9.6.0 and JDK 17. The Android Developers compatibility page lists these minimums.
+- Android Gradle Plugin 9.6.0 requires Gradle 9.8.2 and JDK 17. The Android Developers compatibility page lists these minimums.
 - Keep the initial Android native module in Java to avoid introducing an additional Kotlin plugin compatibility dependency before the first native build is stable.
 
 ### Decision

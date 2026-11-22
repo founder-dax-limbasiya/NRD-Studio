@@ -89,9 +89,9 @@
           <section class="panel render-panel">
             <div class="render-panel-header"><div><p class="eyebrow">LOCAL VIDEO EXPORT</p><h3>Turn your scenes into a video</h3><p class="panel-copy">Creates a silent WebM slideshow with gentle pan, zoom and crossfade transitions on this device.</p></div><span class="panel-icon">▶</span></div>
             <div class="render-controls"><div><label class="field-label" for="renderResolution">Resolution</label><select id="renderResolution" class="text-input"><option value="720">720p · Recommended</option><option value="480">480p · Faster</option></select></div><div><label class="field-label" for="renderFps">Frame rate</label><select id="renderFps" class="text-input"><option value="24">24 FPS</option><option value="30">30 FPS</option></select></div><button class="primary-button" id="renderVideoButton">Render video <span>→</span></button></div>
-            <div class="render-progress-wrap" id="renderProgressWrap" hidden><div class="render-progress-top"><b id="renderProgressLabel">Preparing…</b><span id="renderProgressValue">0%</span></div><progress id="renderProgress" max="100" value="0"></progress></div>
+            <div class="render-progress-wrap" id="renderProgressWrap" hidden><div class="render-progress-top"><b id="renderProgressLabel">Preparing…</b><span id="renderProgressValue">0%</span><button class="danger-button render-cancel" id="cancelRenderButton" hidden>Cancel</button></div><progress id="renderProgress" max="100" value="0"></progress></div>
             <div id="renderResult" class="render-result" hidden></div>
-            <p class="microcopy">This first renderer exports WebM without audio. Keep NRD open while it renders. Processing speed and maximum resolution depend on your phone and browser.</p>
+            <p class="microcopy">This browser renderer exports silent WebM. Keep NRD open while it renders; you can cancel an in-progress export. Processing speed and maximum resolution depend on your phone and browser.</p>
           </section>
         </section>
 

@@ -4,6 +4,10 @@
 
 The current foundation is a dependency-free Progressive Web App (PWA). Drafts and project metadata stay in this browser; media files are kept in IndexedDB on the current device.
 
+## Native Android prototype
+
+A separate native Android module now lives in [android/](android/). It contains an on-device image-sequence to silent H.264 MP4 export prototype using AndroidX Media3 Transformer 1.11.1. See [android/README.md](android/README.md) for the toolchain and limitations. A GitHub Actions workflow builds a debug APK artifact on Android-folder changes. The source has been committed, but the first remote Gradle build and physical-device smoke test still need to pass before the APK is treated as verified.
+
 ## Run and deploy
 
 This is a static web application; there is no build step and no runtime package dependency.
@@ -30,12 +34,12 @@ This is a static web application; there is no build step and no runtime package 
 - AI script, image or video generation.
 - Voice cloning, voiceover generation, music generation or dubbing.
 - Speech-to-text transcription and automatic subtitle timing from audio.
-- Native Android hardware-accelerated MP4 export.
+- Native Android hardware-accelerated MP4 export (prototype code exists; awaiting remote Gradle build and physical-device verification).
 - Audio mixing in the current local video renderer.
 - Full editor timeline for video/audio clips, transitions and layered tracks.
 - Social account OAuth, automatic publishing, analytics or cloud sync.
 
-The current WebM renderer is a browser prototype. It requires image assets on every scene, uses the phone's browser and may be slow or unsupported on some devices. It exports no audio. Keep NRD open while rendering. You can cancel an in-progress render. No output is produced until the browser confirms the recording is complete.
+The PWA's current WebM renderer is a browser prototype. The separate native Android prototype exports still-image sequences to silent H.264 MP4 but is not yet hardware/device verified. It requires image assets on every scene, uses the phone's browser and may be slow or unsupported on some devices. It exports no audio. Keep NRD open while rendering. You can cancel an in-progress render. No output is produced until the browser confirms the recording is complete.
 
 The Channels screen is informational only. It does not connect accounts or send posts. Each social platform has separate app-review, permission, account-type and API requirements. Do not treat a locally planned reminder as a platform schedule.
 

@@ -21,6 +21,7 @@
         <p class="nav-label">WORKSPACE</p>
         <button class="nav-item active" data-page="home"><span>⌂</span>Overview</button>
         <button class="nav-item" data-page="studio"><span>✳</span>Content studio</button>
+        <button class="nav-item" data-page="projects"><span>▤</span>Projects</button>
         <button class="nav-item" data-page="library"><span>▧</span>Media library</button>
         <button class="nav-item" data-page="calendar"><span>▦</span>Planner</button>
         <p class="nav-label nav-label-spaced">PUBLISH</p>
@@ -42,7 +43,7 @@
 
       <div class="page-wrap">
         <section class="page active" id="page-home">
-          <div class="welcome-row"><div><p class="eyebrow">YOUR CREATOR WORKSPACE</p><h1>Make something <em>worth watching.</em></h1><p class="subhead">Plan, prepare and organise your content from one calm workspace.</p></div><button class="primary-button" data-go="studio">＋ <span>New content</span></button></div>
+          <div class="welcome-row"><div><p class="eyebrow">YOUR CREATOR WORKSPACE</p><h1>Make something <em>worth watching.</em></h1><p class="subhead">Plan, prepare and organise your content from one calm workspace.</p></div><button class="primary-button" data-go="projects">＋ <span>New project</span></button></div>
           <div class="notice"><span class="notice-icon">✦</span><div><b>Your studio is ready.</b><span>Drafts and media are stored locally on this device. Connect publishing accounts only when you are ready.</span></div><button class="notice-close" aria-label="Dismiss">×</button></div>
           <div class="stat-grid">
             <article class="stat-card"><span class="stat-label">Drafts</span><strong id="draftCount">0</strong><small>Saved content ideas</small><span class="stat-glyph">✎</span></article>
@@ -57,6 +58,36 @@
           </div>
         </section>
 
+        <section class="page" id="page-projects">
+          <div class="page-title-row"><div><p class="eyebrow">YOUR CREATIVE WORK</p><h1>Projects</h1><p class="subhead">Keep each campaign, video or content series organised in its own workspace.</p></div><span class="beta-pill">LOCAL PROJECTS</span></div>
+          <div class="projects-layout">
+            <div class="panel project-create-panel">
+              <div class="panel-heading"><div><p class="eyebrow">START SOMETHING NEW</p><h3>Create a project</h3></div><span class="panel-icon">＋</span></div>
+              <label class="field-label" for="projectName">Project name</label><input class="text-input" id="projectName" maxlength="90" placeholder="e.g. Monsoon travel series">
+              <div class="field-two"><div><label class="field-label" for="projectFormat">Video format</label><select class="text-input" id="projectFormat"><option value="9:16">Vertical · 9:16</option><option value="16:9">Landscape · 16:9</option><option value="1:1">Square · 1:1</option></select></div><div><label class="field-label" for="projectType">Project type</label><select class="text-input" id="projectType"><option>Short-form video</option><option>YouTube video</option><option>Social campaign</option><option>Content series</option><option>Other</option></select></div></div>
+              <label class="field-label" for="projectBrief">Creative brief <span class="optional-label">OPTIONAL</span></label><textarea class="text-input" id="projectBrief" rows="3" placeholder="What's this project about? Audience, mood, key message…"></textarea>
+              <button class="primary-button" id="createProjectButton">Create project <span>→</span></button>
+            </div>
+            <div class="project-library-panel"><div class="section-heading"><div><p class="eyebrow">YOUR WORKSPACE</p><h2>All projects</h2></div><span class="muted" id="projectCount">0 projects</span></div><div class="project-grid" id="projectGrid"><div class="empty-card"><span class="empty-icon">▤</span><b>No projects yet</b><p>Create a project to start organising scenes and media.</p></div></div></div>
+          </div>
+        </section>
+
+        <section class="page" id="page-storyboard">
+          <div class="page-title-row storyboard-header"><div><button class="text-button" data-go="projects">← All projects</button><p class="eyebrow" style="margin-top:15px">PROJECT STORYBOARD</p><h1 id="storyboardTitle">Storyboard</h1><p class="subhead" id="storyboardBrief">Organise your scenes and visual references.</p></div><span class="beta-pill" id="storyboardFormat">9:16</span></div>
+          <div class="storyboard-summary"><span id="sceneCount">0 scenes</span><span>Scene order is saved locally on this device</span></div>
+          <div class="storyboard-layout">
+            <div class="panel scene-create-panel">
+              <div class="panel-heading"><div><p class="eyebrow">ADD A SHOT</p><h3>New scene</h3></div><span class="panel-icon">＋</span></div>
+              <label class="field-label" for="sceneTitle">Scene title</label><input class="text-input" id="sceneTitle" maxlength="90" placeholder="e.g. Establishing shot">
+              <label class="field-label" for="sceneDescription">Visual direction / shot notes</label><textarea class="text-input" id="sceneDescription" rows="4" placeholder="Describe what happens, framing, mood, lighting or camera movement…"></textarea>
+              <div class="field-two"><div><label class="field-label" for="sceneDuration">Duration (seconds)</label><input class="text-input" id="sceneDuration" type="number" min="1" max="120" step="0.5" value="3"></div><div><label class="field-label" for="sceneAsset">Reference asset</label><select class="text-input" id="sceneAsset"><option value="">No asset selected</option></select></div></div>
+              <button class="primary-button" id="addSceneButton">Add scene to storyboard</button>
+              <p class="microcopy">This is a planning storyboard. It does not render or animate footage yet.</p>
+            </div>
+            <div class="scene-list-panel"><div class="section-heading"><div><p class="eyebrow">SHOT SEQUENCE</p><h2>Scenes</h2></div><span class="muted">Move scenes to reorder</span></div><div id="sceneList" class="scene-list"><div class="empty-card"><span class="empty-icon">▧</span><b>Your storyboard is empty</b><p>Add the first scene to begin planning the video.</p></div></div></div>
+          </div>
+        </section>
+
         <section class="page" id="page-studio">
           <div class="page-title-row"><div><p class="eyebrow">CONTENT WORKSPACE</p><h1>Content studio</h1><p class="subhead">Shape an idea into a draft that's ready for production.</p></div><span class="beta-pill">LOCAL WORKFLOW</span></div>
           <div class="studio-layout">
@@ -64,10 +95,16 @@
               <input type="hidden" id="editingId"><label class="field-label" for="contentTitle">Working title</label><input id="contentTitle" class="text-input" placeholder="Give this idea a name…" maxlength="100">
               <div class="field-two"><div><label class="field-label" for="platformSelect">Platform</label><select id="platformSelect" class="text-input"><option>Instagram</option><option>YouTube</option><option>TikTok</option><option>Facebook</option><option>LinkedIn</option><option>X</option><option>Other</option></select></div><div><label class="field-label" for="formatSelect">Format</label><select id="formatSelect" class="text-input"><option>Short video</option><option>Reel</option><option>YouTube video</option><option>Carousel</option><option>Post</option><option>Story</option></select></div></div>
               <label class="field-label" for="contentIdea">Idea, brief or script</label><textarea id="contentIdea" class="text-input textarea" rows="9" placeholder="What do you want to create? Add your idea, rough script, key points or a full draft…"></textarea>
-              <div class="editor-footer"><span class="muted" id="wordCount">0 words</span><div class="button-row"><button class="secondary-button" id="outlineButton">Create outline</button><button class="secondary-button" id="exportSrtButton">Export SRT</button><button class="primary-button" id="saveDraftButton">Save draft</button></div></div>
+              <div class="editor-footer"><span class="muted" id="wordCount">0 words</span><div class="button-row"><button class="secondary-button" id="outlineButton">Create outline</button><button class="primary-button" id="saveDraftButton">Save draft</button></div></div>
               <p class="microcopy">Outline generation currently uses a simple local text helper. AI generation will be enabled only after a real provider or local model is configured.</p>
             </div>
             <aside class="panel side-panel"><p class="eyebrow">CONTENT CHECKLIST</p><h3>Before production</h3><div class="check-row"><span class="check-number">01</span><div><b>Clear message</b><small>One idea your audience should remember.</small></div></div><div class="check-row"><span class="check-number">02</span><div><b>Strong opening</b><small>Give viewers a reason to stay.</small></div></div><div class="check-row"><span class="check-number">03</span><div><b>Useful ending</b><small>Finish with a takeaway or next step.</small></div></div><div class="side-divider"></div><div class="side-status"><span class="status-dot"></span><div><b>Draft mode</b><small>Nothing is published automatically.</small></div></div></aside>
+          </div>
+          <div class="panel subtitle-panel">
+            <div class="panel-heading"><div><p class="eyebrow">CAPTION WORKSPACE</p><h3>Subtitle editor</h3><p class="panel-copy">Import an SRT/VTT file or build editable starter timings from your script.</p></div><span class="panel-icon">CC</span></div>
+            <div class="subtitle-toolbar"><button class="secondary-button" id="buildSubtitlesButton">Build from script</button><button class="secondary-button" id="addSubtitleButton">＋ Add cue</button><label class="secondary-button file-button">Import SRT / VTT<input id="subtitleFileInput" type="file" accept=".srt,.vtt,text/vtt,application/x-subrip" hidden></label><button class="primary-button" id="downloadSubtitlesButton">Export SRT</button></div>
+            <div id="subtitleList" class="subtitle-list"><div class="empty-inline">No subtitle cues yet. Build from script or import an SRT/VTT file.</div></div>
+            <p class="microcopy">Timings are editable. Starter timings are estimates only; sync them to your actual audio before publishing.</p>
           </div>
           <div class="panel outline-panel" id="outlinePanel" hidden><div class="panel-heading"><div><p class="eyebrow">LOCAL OUTLINE</p><h3>Suggested structure</h3></div><button class="icon-button" id="closeOutline" aria-label="Close outline">×</button></div><div id="outlineContent"></div></div>
         </section>
@@ -97,7 +134,7 @@
       <footer class="footer"><span>NRD STUDIO</span><span>Build with intention.</span></footer>
     </main>
   </div>
-  <nav class="mobile-nav" aria-label="Mobile navigation"><button class="active" data-page="home"><span>⌂</span><small>Home</small></button><button data-page="studio"><span>✳</span><small>Studio</small></button><button data-page="library"><span>▧</span><small>Library</small></button><button data-page="calendar"><span>▦</span><small>Planner</small></button><button data-page="channels"><span>◎</span><small>Channels</small></button><button data-page="settings"><span>⚙</span><small>Settings</small></button></nav>
+  <nav class="mobile-nav" aria-label="Mobile navigation"><button class="active" data-page="home"><span>⌂</span><small>Home</small></button><button data-page="studio"><span>✳</span><small>Studio</small></button><button data-page="projects"><span>▤</span><small>Projects</small></button><button data-page="library"><span>▧</span><small>Library</small></button><button data-page="calendar"><span>▦</span><small>Planner</small></button><button data-page="channels"><span>◎</span><small>Channels</small></button><button data-page="settings"><span>⚙</span><small>Settings</small></button></nav>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="/app.js" defer></script>
 </body>

@@ -1,4 +1,4 @@
-const CACHE_NAME = "nrd-studio-shell-v3";
+const CACHE_NAME = "nrd-studio-shell-v4";
 const SHELL = ["/", "/index.html", "/styles.css", "/app.js", "/subtitles.js", "/projects.js", "/render.js", "/manifest.webmanifest", "/assets/icon.svg"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(SHELL)));

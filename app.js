@@ -185,7 +185,6 @@ async function renderAssets() {
   const grid = $("#assetGrid");
   if (!assets.length) {
     grid.innerHTML = '<div class="empty-card"><span class="empty-icon">▧</span><b>Your library is empty</b><p>Add images, video clips or audio files to start organising your media.</p><label class="secondary-button">Add your first files<input type="file" accept="image/*,video/*,audio/*" multiple hidden id="emptyMediaInput"></label></div>';
-    $("#emptyMediaInput").addEventListener("change", handleFiles);
     return;
   }
   grid.innerHTML = assets.map(asset => {

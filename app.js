@@ -129,6 +129,34 @@ $("#outlineButton").addEventListener("click", () => {
   $("#outlinePanel").scrollIntoView({ behavior:"smooth", block:"nearest" });
   showToast("Local outline created — no AI service used");
 });
+
+function srtTime(milliseconds) {
+  const value = Math.max(0, milliseconds);
+  const hours = Math.floor(value / 3600000);
+  const minutes = Math.floor((value % 3600000) / 60000);
+  const seconds = Math.floor((value % 60000) / 1000);
+  const millis = value % 1000;
+  return `${String(hours).padStart(2,"0")}:${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")},${String(millis).padStart(3,"0")}`;
+}
+$("#exportSrtButton").addEventListener("click", () => {
+  const script = $("#contentIdea").value.trim();
+  if (!script) { showToast("Add a script before exporting subtitles"); return; }
+  const lines = script.split(/(?<=[.!?])\\s+|\\n+/).map(line => line.trim()).filter(Boolean);
+  const srt = lines.map((line,index) => {
+    const start = index * 3500;
+    const end = start + 3000;
+    return `${index + 1}\\n${srtTime(start)} --> ${srtTime(end)}\\n${line}`;
+  }).join("\\n\\n");
+  const blob = new Blob([srt], { type:"application/x-subrip;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `${($("#contentTitle").value.trim() || "nrd-captions").replace(/[^a-z0-9-_]+/gi,"-")}.srt`;
+  link.click();
+  URL.revokeObjectURL(url);
+  showToast("SRT draft exported — adjust timings to match your final audio");
+});
+
 $("#closeOutline").addEventListener("click", () => $("#outlinePanel").hidden = true);
 function resetEditor() {
   $("#editingId").value = "";

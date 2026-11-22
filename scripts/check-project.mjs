@@ -17,7 +17,7 @@ for (const file of scripts) {
 }
 const manifest = JSON.parse(readFileSync("manifest.webmanifest", "utf8"));
 assert.ok(manifest.name && manifest.start_url && manifest.display, "PWA manifest is incomplete");
-for (const path of ["styles.css", "manifest.webmanifest", "assets/icon.svg", "scripts/check-project.mjs", "scripts/test-subtitles.mjs"]) {
+for (const path of ["styles.css", "manifest.webmanifest", "assets/icon.svg", "scripts/check-project.mjs", "scripts/test-subtitles.mjs", "scripts/test-render.mjs"]) {
   assert.ok(existsSync(path), "Missing project file: " + path);
 }
 for (const module of ["projects.js", "subtitles.js", "render.js"]) {
@@ -28,4 +28,5 @@ assert.ok(html.includes('id="projectGrid"'), "Project library screen is missing"
 assert.ok(html.includes('id="sceneList"'), "Storyboard screen is missing");
 assert.ok(html.includes('id="subtitleList"'), "Subtitle editor is missing");
 assert.ok(html.includes('id="renderVideoButton"'), "Video renderer control is missing");
+assert.ok(html.includes('id="cancelRenderButton"'), "Render cancellation control is missing");
 console.log("NRD project smoke checks passed.");

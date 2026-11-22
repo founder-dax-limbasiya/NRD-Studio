@@ -233,8 +233,9 @@ function renderChannels() {
   $("#channelGrid").innerHTML = channels.map(([name,logo,detail]) => `<article class="channel-card"><div class="channel-top"><span class="channel-logo">${logo}</span><span class="not-connected">Not connected</span></div><h3>${name}</h3><p>${detail}</p></article>`).join("");
 }
 $("#backupButton").addEventListener("click", () => {
-  const projectData = JSON.parse(localStorage.getItem("nrd-projects-v1") || "[]");
-  const data = { version:2, exportedAt:new Date().toISOString(), drafts:state.drafts, planned:state.planned, projects:Array.isArray(projectData) ? projectData : [] };
+  let projectData = [];
+  try { const savedProjects = JSON.parse(localStorage.getItem("nrd-projects-v1") || "[]"); if (Array.isArray(savedProjects)) projectData = savedProjects; } catch {}
+  const data = { version:2, exportedAt:new Date().toISOString(), drafts:state.drafts, planned:state.planned, projects:projectData };
   const blob = new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");

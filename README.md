@@ -2,7 +2,7 @@
 
 **NRD (NotRealDaksh)** is a mobile-first workspace for planning, preparing and organising digital content.
 
-The current foundation is a dependency-free Progressive Web App (PWA). It is deliberately local-first: drafts are stored in browser storage and uploaded media is kept in IndexedDB on the current device.
+The current foundation is a dependency-free Progressive Web App (PWA). Drafts and project metadata stay in this browser; media files are kept in IndexedDB on the current device.
 
 ## Run and deploy
 
@@ -15,33 +15,37 @@ This is a static web application; there is no build step and no runtime package 
 
 ## Implemented in the current foundation
 
-- Responsive mobile-first workspace and navigation.
-- Installable PWA manifest and offline app-shell service worker.
+- Responsive mobile-first workspace and installable PWA shell.
 - Local content drafts with platform and format labels.
-- Local text outline helper (rule-based; not an AI model).
+- Rule-based outline helper (not an AI model).
 - Media library for image, video and audio files using IndexedDB.
 - Local planner reminders (these do not publish content).
-- Script-to-SRT subtitle draft export with starter timing.
-- JSON export of drafts and planner reminders.
+- Local project library with scene storyboards, scene order, durations and image references.
+- Editable subtitle cues with SRT/VTT import, SRT export and estimated starter timings from a script.
+- Browser Canvas slideshow export to WebM with gentle pan/zoom, crossfade and render progress (silent prototype; browser support required).
+- JSON backup of drafts, subtitle cues, reminders and project/storyboard metadata.
 
-## Not connected yet
+## Not connected or not implemented yet
 
-These features are planned, not currently implemented:
-
-- AI script or image/video generation.
+- AI script, image or video generation.
 - Voice cloning, voiceover generation, music generation or dubbing.
-- Speech-to-text transcription and subtitle timing from audio.
-- Final video rendering and automated editing.
+- Speech-to-text transcription and automatic subtitle timing from audio.
+- Native Android hardware-accelerated MP4 export.
+- Audio mixing in the current local video renderer.
+- Full editor timeline for video/audio clips, transitions and layered tracks.
 - Social account OAuth, automatic publishing, analytics or cloud sync.
+
+The current WebM renderer is a browser prototype. It requires image assets on every scene, uses the phone's browser and may be slow or unsupported on some devices. It exports no audio. Keep NRD open while rendering. No output is produced until the browser confirms the recording is complete.
 
 The Channels screen is informational only. It does not connect accounts or send posts. Each social platform has separate app-review, permission, account-type and API requirements. Do not treat a locally planned reminder as a platform schedule.
 
 ## Data and privacy
 
 - Drafts and planner reminders are stored in this browser's local storage.
+- Projects and storyboards are stored in this browser's local storage.
 - Media files are stored in IndexedDB for this browser on this device.
 - Clearing browser data may remove locally stored project data.
-- The workspace backup exports drafts (including subtitle cues), planner reminders and project/storyboard metadata; media binaries are not included in that JSON backup.
+- The workspace backup exports drafts (including subtitle cues), reminders and project/storyboard metadata; media binaries are not included in that JSON backup.
 - Do not store API secrets or OAuth tokens in browser code or commit them to the repository.
 
 ## Development checks
@@ -50,22 +54,27 @@ Run:
 
 ```bash
 node --check app.js
+node --check projects.js
+node --check subtitles.js
+node --check render.js
+node --check sw.js
 node scripts/check-project.mjs
 ```
 
-GitHub Actions runs these checks on pushes and pull requests.
+GitHub Actions runs the syntax checks and project smoke checks on pushes and pull requests.
 
 ## Roadmap and integration research
 
 - Development plan: [docs/ROADMAP.md](docs/ROADMAP.md)
 - Publishing engine evaluation: [docs/PUBLISHING-INTEGRATION-RESEARCH.md](docs/PUBLISHING-INTEGRATION-RESEARCH.md)
+- Media pipeline evaluation: [docs/MEDIA-PIPELINE-RESEARCH.md](docs/MEDIA-PIPELINE-RESEARCH.md)
 
 ## Architecture direction
 
 Keep the product modular:
 
 1. Workspace and content planning.
-2. Media and asset management.
+2. Project/storyboard and media asset management.
 3. Script, voice and subtitle production.
 4. Video assembly and export.
 5. Platform-specific publishing adapters.

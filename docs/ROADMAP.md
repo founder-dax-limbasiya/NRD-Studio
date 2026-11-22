@@ -25,7 +25,8 @@ This roadmap reflects the current repository state. A checked item means the fea
 
 - [ ] Compare Android-compatible and browser-compatible media engines.
 - [ ] Verify code and model licences independently.
-- [x] Browser-based local silent WebM slideshow prototype with pan/zoom, crossfade and progress.
+- [x] Browser-based local silent WebM slideshow prototype with pan/zoom, crossfade, progress and cancellation.
+- [x] Automated checks for subtitle parsing, output dimensions and browser recording-codec capability.
 - [ ] Native Android hardware-accelerated MP4 render pipeline with background progress, cancellation and resume.
 - [ ] Add optional speech-to-text and TTS adapters after model/voice licence review.
 - [ ] Provide a useful non-AI fallback for every optional AI step.
@@ -51,7 +52,7 @@ This roadmap reflects the current repository state. A checked item means the fea
 
 ## Immediate next engineering work
 
-1. Add automated tests for scene/project persistence, subtitle parsing and media-render capability checks.
-2. Build a native Android render module using AndroidX Media3 Transformer after Gradle/SDK compatibility is pinned.
+1. Add tests for project/scene model behavior and test rendering on physical Android devices.
+2. Build a native Android render module using stable AndroidX Media3 Transformer after a Gradle/SDK compatibility pin is smoke-built in CI.
 3. Add audio track selection and mixing with a real preview workflow.
 4. Prototype one secure server-side publishing adapter only after the deployment/storage choice is known.

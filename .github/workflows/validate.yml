@@ -19,7 +19,12 @@ jobs:
         with:
           node-version: 20
       - name: Check JavaScript syntax
-        run: node --check app.js
+        run: |
+          node --check app.js
+          node --check projects.js
+          node --check subtitles.js
+          node --check render.js
+          node --check sw.js
       - name: Run project smoke checks
         run: node scripts/check-project.mjs
       - name: Test subtitle parser

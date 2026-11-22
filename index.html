@@ -78,7 +78,7 @@
           <div class="storyboard-layout">
             <div class="panel scene-create-panel">
               <div class="panel-heading"><div><p class="eyebrow">ADD A SHOT</p><h3>New scene</h3></div><span class="panel-icon">＋</span></div>
-              <label class="field-label" for="sceneTitle">Scene title</label><input class="text-input" id="sceneTitle" maxlength="90" placeholder="e.g. Establishing shot">
+              <input type="hidden" id="editingSceneId"><label class="field-label" for="sceneTitle">Scene title</label><input class="text-input" id="sceneTitle" maxlength="90" placeholder="e.g. Establishing shot">
               <label class="field-label" for="sceneDescription">Visual direction / shot notes</label><textarea class="text-input" id="sceneDescription" rows="4" placeholder="Describe what happens, framing, mood, lighting or camera movement…"></textarea>
               <div class="field-two"><div><label class="field-label" for="sceneDuration">Duration (seconds)</label><input class="text-input" id="sceneDuration" type="number" min="1" max="120" step="0.5" value="3"></div><div><label class="field-label" for="sceneAsset">Reference asset</label><select class="text-input" id="sceneAsset"><option value="">No asset selected</option></select></div></div>
               <button class="primary-button" id="addSceneButton">Add scene to storyboard</button>
@@ -137,5 +137,7 @@
   <nav class="mobile-nav" aria-label="Mobile navigation"><button class="active" data-page="home"><span>⌂</span><small>Home</small></button><button data-page="studio"><span>✳</span><small>Studio</small></button><button data-page="projects"><span>▤</span><small>Projects</small></button><button data-page="library"><span>▧</span><small>Library</small></button><button data-page="calendar"><span>▦</span><small>Planner</small></button><button data-page="channels"><span>◎</span><small>Channels</small></button><button data-page="settings"><span>⚙</span><small>Settings</small></button></nav>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="/app.js" defer></script>
+  <script src="/subtitles.js" defer></script>
+  <script src="/projects.js" defer></script>
 </body>
 </html>

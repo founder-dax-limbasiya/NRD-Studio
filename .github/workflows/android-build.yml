@@ -42,6 +42,22 @@ jobs:
       - name: Run Android unit tests and build debug APK
         run: gradle --no-daemon --stacktrace -p android :app:testDebugUnitTest :app:assembleDebug
 
+      - name: Launch app on Android 14 emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          profile: pixel_2
+          disable-animations: true
+          script: |
+            adb install -r android/app/build/outputs/apk/debug/app-debug.apk
+            adb logcat -c
+            adb shell am start -W -n com.nrd.studio/.MainActivity
+            sleep 6
+            adb shell pidof com.nrd.studio
+            adb shell uiautomator dump /sdcard/nrd-window.xml
+            adb shell cat /sdcard/nrd-window.xml | grep -F "Images in. Videos out."
+
       - name: Upload debug APK
         uses: actions/upload-artifact@v7
         with:

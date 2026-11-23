@@ -22,6 +22,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,6 +51,9 @@ public final class MainActivity extends Activity {
     private static final int REQUEST_SAVE_VIDEO = 2102;
     private static final String PREFS = "nrd-native-workspace";
     private static final String SCENES_KEY = "image-scenes";
+    private static final String PROJECT_NAME_KEY = "project-name";
+    private static final String ASPECT_KEY = "output-aspect";
+    private static final String FPS_KEY = "output-fps";
 
     private final ArrayList<SceneDraft> scenes = new ArrayList<>();
     private final AndroidImageSequenceRenderer renderer = new AndroidImageSequenceRenderer();
@@ -98,6 +102,8 @@ public final class MainActivity extends Activity {
         window.getDecorView().setSystemUiVisibility(0);
         restoreScenes();
         buildUi();
+        wireProjectSettingsPersistence();
+        restoreProjectSettings();
         renderSceneList();
     }
 
@@ -219,6 +225,46 @@ public final class MainActivity extends Activity {
         page.addView(note);
 
         setContentView(scroll);
+    }
+
+    private void wireProjectSettingsPersistence() {
+        projectName.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                getSharedPreferences(PREFS, MODE_PRIVATE)
+                        .edit().putString(PROJECT_NAME_KEY, s.toString()).apply();
+            }
+            @Override public void afterTextChanged(Editable s) {}
+        });
+
+        aspectSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getSharedPreferences(PREFS, MODE_PRIVATE)
+                        .edit().putInt(ASPECT_KEY, position).apply();
+            }
+
+            @Override public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        fpsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getSharedPreferences(PREFS, MODE_PRIVATE)
+                        .edit().putInt(FPS_KEY, position).apply();
+            }
+
+            @Override public void onNothingSelected(AdapterView<?> parent) {}
+        });
+    }
+
+    private void restoreProjectSettings() {
+        SharedPreferences prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
+        projectName.setText(prefs.getString(PROJECT_NAME_KEY, ""));
+        int aspect = prefs.getInt(ASPECT_KEY, 0);
+        int fps = prefs.getInt(FPS_KEY, 0);
+        aspectSpinner.setSelection(aspect >= 0 && aspect <= 2 ? aspect : 0);
+        fpsSpinner.setSelection(fps == 1 ? 1 : 0);
     }
 
     private LinearLayout card(LinearLayout parent) {

@@ -16,8 +16,8 @@ The renderer uses AndroidX Media3 Transformer 1.11.1 and Presentation to scale e
 ## Toolchain
 
 - JDK 17
-- Android Gradle Plugin 9.6.0
-- Gradle 9.8.2
+- Android Gradle Plugin 9.5.0
+- Gradle 9.6.0
 - Android SDK platform 36 and Build Tools 36.0.0
 - Minimum Android API 23
 - AndroidX Media3 Transformer and Media3 Effect 1.11.1 (Apache-2.0)

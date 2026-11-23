@@ -92,6 +92,20 @@ public final class AndroidImageSequenceRenderer {
             throw new IllegalArgumentException("An output file is required.");
         }
 
+        long totalDurationMs = 0L;
+        for (Scene scene : scenes) {
+            if (scene == null || !RenderPlan.isValidSceneDurationMs(scene.durationMs)) {
+                throw new IllegalArgumentException(
+                        "Each scene duration must be between 1 and 120 seconds.");
+            }
+            totalDurationMs += scene.durationMs;
+        }
+        String validationError = RenderPlan.validateExport(
+                scenes.size(), totalDurationMs, outputWidth, outputHeight, frameRate);
+        if (validationError != null) {
+            throw new IllegalArgumentException(validationError);
+        }
+
         this.callback = callback;
         this.cancelRequested = false;
 

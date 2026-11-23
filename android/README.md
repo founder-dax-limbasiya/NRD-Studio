@@ -32,6 +32,10 @@ The debug APK is produced at:
 
     android/app/build/outputs/apk/debug/app-debug.apk
 
+## Build status and release warning
+
+The GitHub Actions debug build has passed. This confirms source compilation and APK packaging in the CI environment; it does not confirm runtime compatibility on every Android phone. The APK is signed with the CI debug key, is intended for testing only, and is not suitable for Play Store publication. Release signing and physical-device tests are still required.
+
 ## Device test checklist
 
 - Import 2–5 ordinary JPEG or PNG images.

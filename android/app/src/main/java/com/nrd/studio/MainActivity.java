@@ -1,6 +1,9 @@
 package com.nrd.studio;
 
 import android.app.Activity;
+
+import androidx.annotation.OptIn;
+import androidx.media3.common.util.UnstableApi;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -41,6 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+@OptIn(markerClass = UnstableApi.class)
 public final class MainActivity extends Activity {
     private static final int REQUEST_PICK_IMAGES = 2101;
     private static final int REQUEST_SAVE_VIDEO = 2102;

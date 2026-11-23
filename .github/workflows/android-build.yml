@@ -42,6 +42,14 @@ jobs:
       - name: Run Android unit tests and build debug APK
         run: gradle --no-daemon --stacktrace -p android :app:testDebugUnitTest :app:assembleDebug
 
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v7
+        with:
+          name: nrd-studio-android-debug
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Launch app on Android 14 emulator
         uses: reactivecircus/android-emulator-runner@v2
         env:
@@ -80,10 +88,3 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
-      - name: Upload debug APK
-        uses: actions/upload-artifact@v7
-        with:
-          name: nrd-studio-android-debug
-          path: android/app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: error
-          retention-days: 14

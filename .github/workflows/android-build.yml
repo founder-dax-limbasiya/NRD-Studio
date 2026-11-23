@@ -48,15 +48,34 @@ jobs:
           api-level: 34
           arch: x86_64
           profile: pixel_2
+          emulator-boot-timeout: 300
           disable-animations: true
           script: |
+            set -euo pipefail
             adb install -r android/app/build/outputs/apk/debug/app-debug.apk
             adb logcat -c
             adb shell am start -W -n com.nrd.studio/.MainActivity
             sleep 6
-            adb shell pidof com.nrd.studio
-            adb shell uiautomator dump /sdcard/nrd-window.xml
-            adb shell cat /sdcard/nrd-window.xml | grep -F "Images in. Videos out."
+            if ! adb shell pidof com.nrd.studio; then
+              adb logcat -d -v time > nrd-emulator-logcat.txt || true
+              exit 1
+            fi
+            if ! timeout 30s adb shell uiautomator dump /sdcard/nrd-window.xml; then
+              adb logcat -d -v time > nrd-emulator-logcat.txt || true
+              exit 1
+            fi
+            if ! adb shell cat /sdcard/nrd-window.xml | grep -F "Images in. Videos out."; then
+              adb logcat -d -v time > nrd-emulator-logcat.txt || true
+              exit 1
+            fi
+      - name: Upload Android emulator diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: nrd-emulator-diagnostics
+          path: nrd-emulator-logcat.txt
+          if-no-files-found: ignore
+          retention-days: 7
 
       - name: Upload debug APK
         uses: actions/upload-artifact@v7

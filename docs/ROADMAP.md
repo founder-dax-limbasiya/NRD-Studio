@@ -23,13 +23,13 @@ This roadmap reflects the current repository state. A checked item means the fea
 
 ## Milestone 2 — Open-source media pipeline
 
-- [ ] Compare Android-compatible and browser-compatible media engines.
-- [ ] Verify code and model licences independently.
+- [x] Compare Android-compatible and browser-compatible media engines.
+- [x] Verify the selected Media3 library licence; continue separate checks for any future model/voice assets.
 - [x] Browser-based local silent WebM slideshow prototype with pan/zoom, crossfade, progress and cancellation.
 - [x] Automated checks for subtitle parsing, output dimensions and browser recording-codec capability.
 - [x] Native Android Media3 MP4 renderer prototype compiles and produces a debug APK in GitHub Actions.
+- [x] Shared native export validation with five JUnit test methods; CI runs unit tests before APK packaging.
 - [ ] Physical-device tests for image import, ordering, scene durations, MP4 playback, cancellation and memory use.
-- [ ] Background rendering, process-death recovery and resumable jobs.
 - [ ] Background rendering, process-death recovery and resumable jobs.
 - [ ] Add optional speech-to-text and TTS adapters after model/voice licence review.
 - [ ] Provide a useful non-AI fallback for every optional AI step.
@@ -55,7 +55,7 @@ This roadmap reflects the current repository state. A checked item means the fea
 
 ## Immediate next engineering work
 
-1. Add tests for project/scene model behavior and test rendering on physical Android devices.
-2. Build a native Android render module using stable AndroidX Media3 Transformer after a Gradle/SDK compatibility pin is smoke-built in CI.
-3. Add audio track selection and mixing with a real preview workflow.
+1. Test image import, ordering, durations, MP4 playback, cancellation and memory use on physical Android devices.
+2. Add audio track selection and mixing with a real preview workflow.
+3. Add background rendering and process-death recovery after foreground exports are stable.
 4. Prototype one secure server-side publishing adapter only after the deployment/storage choice is known.

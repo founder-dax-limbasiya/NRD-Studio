@@ -205,7 +205,6 @@ public final class MainActivity extends Activity {
         addSpace(projectCard, 12);
         projectCard.addView(label("FRAME RATE"));
         fpsSpinner = spinner(new String[]{"24 FPS", "30 FPS"});
-        page.addView(projectCard);
         projectCard.addView(fpsSpinner);
         addSpace(page, 16);
 

@@ -26,7 +26,7 @@ The android folder can be opened as a project in Android Studio. The CI workflow
 
 ## Build from a machine with Android tooling
 
-    gradle --no-daemon -p android :app:assembleDebug
+    gradle --no-daemon -p android :app:testDebugUnitTest :app:assembleDebug
 
 The debug APK is produced at:
 
@@ -34,7 +34,7 @@ The debug APK is produced at:
 
 ## Build status and release warning
 
-The GitHub Actions debug build has passed. This confirms source compilation and APK packaging in the CI environment; it does not confirm runtime compatibility on every Android phone. The APK is signed with the CI debug key, is intended for testing only, and is not suitable for Play Store publication. Release signing and physical-device tests are still required.
+On 23 November 2026, GitHub Actions run [#15](https://github.com/founder-dax-limbasiya/NRD-Studio/actions/runs/45143316223) passed five JUnit test methods, `:app:testDebugUnitTest`, and `:app:assembleDebug`. The APK artifact is 4,722,485 bytes and is retained until 7 December 2026. This confirms automated validation, source compilation and APK packaging in CI; it does not confirm runtime compatibility on every Android phone. The APK is signed with the CI debug key, is intended for testing only, and is not suitable for Play Store publication. Release signing and physical-device tests are still required.
 
 ## Device test checklist
 
@@ -51,6 +51,7 @@ The GitHub Actions debug build has passed. This confirms source compilation and 
 - Image access is retained through Android's document-provider permission when the provider supports persistable grants.
 - A native export currently runs while the app is open. Background work, process-death recovery and persistent render jobs need a separate lifecycle design.
 - The output is saved only after the user selects a destination in the Android Save dialog.
+- A newly downloaded CI debug APK can have a different debug-signing key from a previous CI build. Uninstall the previous test build first if Android refuses to install it as an update.
 - Successful compilation does not prove compatibility with every device codec. Physical-device testing is required.
 
 No paid API, external server or model download is required for this image-to-MP4 path.

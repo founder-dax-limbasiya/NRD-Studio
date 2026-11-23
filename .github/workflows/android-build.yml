@@ -57,6 +57,7 @@ jobs:
           arch: x86_64
           profile: pixel_2
           emulator-boot-timeout: 600
+          disable-linux-hw-accel: false
           disable-animations: true
           script: |
             bash android/scripts/emulator-smoke-test.sh

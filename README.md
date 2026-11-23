@@ -6,7 +6,7 @@ The current foundation is a dependency-free Progressive Web App (PWA). Drafts an
 
 ## Native Android prototype
 
-A separate native Android module now lives in [android/](android/). It contains an on-device image-sequence to silent H.264 MP4 export prototype using AndroidX Media3 Transformer 1.11.1. See [android/README.md](android/README.md) for the toolchain and limitations. A GitHub Actions workflow builds a debug APK artifact on Android-folder changes. The source has been committed, but the first remote Gradle build and physical-device smoke test still need to pass before the APK is treated as verified.
+A separate native Android module now lives in [android/](android/). It contains an on-device image-sequence to silent H.264 MP4 export prototype using AndroidX Media3 Transformer 1.11.1. See [android/README.md](android/README.md) for the toolchain and limitations. A GitHub Actions workflow builds a debug APK artifact on Android-folder changes. The native source compiled successfully in GitHub Actions and a debug APK artifact was uploaded from commit a7b1d08. The APK is a debug/test build, not a Play Store release. Physical-device export and playback testing are still outstanding.
 
 ## Run and deploy
 

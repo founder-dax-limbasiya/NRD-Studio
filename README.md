@@ -34,7 +34,7 @@ This is a static web application; there is no build step and no runtime package 
 - AI script, image or video generation.
 - Voice cloning, voiceover generation, music generation or dubbing.
 - Speech-to-text transcription and automatic subtitle timing from audio.
-- Native Android Media3 MP4 export prototype (source added; awaiting remote Gradle build and physical-device verification).
+- Native Android Media3 MP4 export prototype (unit tests and debug APK build pass in GitHub Actions; physical-device verification remains open).
 - Audio mixing in the current local video renderer.
 - Full editor timeline for video/audio clips, transitions and layered tracks.
 - Social account OAuth, automatic publishing, analytics or cloud sync.
@@ -91,3 +91,8 @@ External providers should be optional. Any third-party code or model must be che
 ## Project licence
 
 No project-wide licence has been selected yet. Do not assume that the repository or future bundled assets are licensed for redistribution. Preserve the individual licences and notices of any third-party components that are added.
+
+
+## Native Android build check
+
+The native Android project now has shared render-plan validation and five JUnit test methods covering scene-duration boundaries, scene-count and total-duration limits, output dimensions, frame rates, aspect presets and filename sanitization. On 23 November 2026, GitHub Actions run [#15](https://github.com/founder-dax-limbasiya/NRD-Studio/actions/runs/45143316223) passed `testDebugUnitTest` and `assembleDebug`, then uploaded a debug APK. This is a CI build/test result, not a physical-device test or a Play Store release.

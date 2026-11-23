@@ -39,7 +39,7 @@ Verified facts:
 
 Use Media3 Transformer 1.11.1 as the first native Android rendering candidate. It is a better fit than bundling a general-purpose FFmpeg binary for the initial Android export workflow, because the target is local Android device export and the project can use Android's media codecs and OpenGL.
 
-The native module now uses the pinned prototype baseline AGP 9.6.0 + Gradle 9.8.2 + JDK 17 + Media3 1.11.1. It is a Java app module under android/, with a GitHub Actions debug-APK build. The CI compile and physical Android device run must pass before calling it device-ready. Test portrait/landscape/square output, image durations, effect behavior, encoder compatibility and memory use.
+The native module now uses the pinned prototype baseline AGP 9.5.0 + Gradle 9.6.0 + JDK 17 + Media3 1.11.1. It is a Java app module under android/, with a GitHub Actions debug-APK build. The CI compile and physical Android device run must pass before calling it device-ready. Test portrait/landscape/square output, image durations, effect behavior, encoder compatibility and memory use.
 
 ## 3. FFmpeg option: FFmpegKitNext
 
@@ -92,7 +92,7 @@ The web UI must not claim that a file has been exported until the native rendere
 - Android Media3 Transformer API: https://developer.android.com/reference/androidx/media3/transformer/Transformer
 - AndroidX Media releases: https://github.com/androidx/media/releases
 - Android Gradle Plugin compatibility: https://developer.android.com/build/releases/about-agp
-- Android Gradle Plugin 9.6 release notes: https://developer.android.com/build/releases/agp-9-6-0-release-notes
+- Android Gradle Plugin 9.5 release notes: https://developer.android.com/build/releases/agp-9-5-0-release-notes
 - AndroidX Media license: https://github.com/androidx/media/blob/release/LICENSE
 - Official FFmpegKitNext repository: https://github.com/arthenica/ffmpeg-kit-next
 - FFmpegKitNext Android build guide: https://github.com/arthenica/ffmpeg-kit-next/tree/main/android

@@ -4,6 +4,8 @@ import android.app.Activity;
 
 import androidx.annotation.OptIn;
 import androidx.media3.common.util.UnstableApi;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +20,7 @@ import android.provider.OpenableColumns;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +59,7 @@ public final class MainActivity extends Activity {
     private static final String FPS_KEY = "output-fps";
 
     private final ArrayList<SceneDraft> scenes = new ArrayList<>();
-    private final AndroidImageSequenceRenderer renderer = new AndroidImageSequenceRenderer();
+    private AndroidImageSequenceRenderer renderer;
 
     private LinearLayout sceneList;
     private TextView sceneCount;
@@ -96,15 +99,60 @@ public final class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Window window = getWindow();
-        window.setStatusBarColor(BG);
-        window.setNavigationBarColor(BG);
-        window.getDecorView().setSystemUiVisibility(0);
-        restoreScenes();
-        buildUi();
-        wireProjectSettingsPersistence();
-        restoreProjectSettings();
-        renderSceneList();
+        try {
+            Window window = getWindow();
+            window.setStatusBarColor(BG);
+            window.setNavigationBarColor(BG);
+            window.getDecorView().setSystemUiVisibility(0);
+            restoreScenes();
+            buildUi();
+            wireProjectSettingsPersistence();
+            restoreProjectSettings();
+            renderSceneList();
+        } catch (RuntimeException exception) {
+            Log.e("NRDStudio", "Startup failed while building the workspace", exception);
+            showStartupFailure(exception);
+        }
+    }
+
+    private void showStartupFailure(RuntimeException exception) {
+        String detail = exception.getClass().getSimpleName() + ": "
+                + (exception.getMessage() == null ? "No additional details." : exception.getMessage());
+
+        LinearLayout page = new LinearLayout(this);
+        page.setOrientation(LinearLayout.VERTICAL);
+        page.setGravity(Gravity.CENTER_VERTICAL);
+        page.setPadding(dp(24), dp(24), dp(24), dp(24));
+        page.setBackgroundColor(BG);
+
+        TextView title = text("NRD Studio could not load", 23, TEXT, true);
+        page.addView(title);
+        addSpace(page, 12);
+
+        TextView description = text(
+                "The app stayed open to show the startup error. Copy the detail below and share it so the issue can be fixed.",
+                13, MUTED, false
+        );
+        description.setLineSpacing(dp(3), 1f);
+        page.addView(description);
+        addSpace(page, 18);
+
+        TextView error = text(detail, 12, TEXT, false);
+        error.setTextIsSelectable(true);
+        page.addView(error);
+        addSpace(page, 18);
+
+        Button copy = button("Copy error details", true);
+        copy.setOnClickListener(view -> {
+            ClipboardManager clipboard =
+                    (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+            if (clipboard != null) {
+                clipboard.setPrimaryClip(ClipData.newPlainText("NRD startup error", detail));
+                toast("Error details copied.");
+            }
+        });
+        page.addView(copy);
+        setContentView(page);
     }
 
     private void buildUi() {
@@ -190,7 +238,9 @@ public final class MainActivity extends Activity {
 
         cancelButton = button("Cancel render", false);
         cancelButton.setVisibility(View.GONE);
-        cancelButton.setOnClickListener(view -> renderer.cancel());
+        cancelButton.setOnClickListener(view -> {
+            if (renderer != null) renderer.cancel();
+        });
         page.addView(cancelButton);
         addSpace(page, 12);
 
@@ -631,6 +681,9 @@ public final class MainActivity extends Activity {
         statusText.setText("Preparing images for MP4 export…");
 
         try {
+            if (renderer == null) {
+                renderer = new AndroidImageSequenceRenderer();
+            }
             renderer.export(
                     this,
                     inputs,

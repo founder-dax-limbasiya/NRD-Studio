@@ -538,7 +538,7 @@ public final class MainActivity extends Activity {
         long totalDuration = 0;
         List<AndroidImageSequenceRenderer.Scene> inputs = new ArrayList<>();
         for (SceneDraft scene : scenes) {
-            if (scene.durationSeconds < 1 || scene.durationSeconds > 120) {
+            if (!RenderPlan.isValidSceneDurationSeconds(scene.durationSeconds)) {
                 toast("Each scene duration must be between 1 and 120 seconds.");
                 return;
             }
@@ -548,31 +548,19 @@ public final class MainActivity extends Activity {
                     scene.durationSeconds * 1000L
             ));
         }
-        if (totalDuration > 600) {
+        if (totalDuration > RenderPlan.MAX_TOTAL_DURATION_SECONDS) {
             toast("Keep the first export under 10 minutes for stable phone performance.");
             return;
         }
 
-        int width;
-        int height;
-        switch (aspectSpinner.getSelectedItemPosition()) {
-            case 1:
-                width = 1280;
-                height = 720;
-                break;
-            case 2:
-                width = 720;
-                height = 720;
-                break;
-            default:
-                width = 720;
-                height = 1280;
-        }
+        int[] dimensions = RenderPlan.dimensionsForAspectSelection(
+                aspectSpinner.getSelectedItemPosition());
+        int width = dimensions[0];
+        int height = dimensions[1];
         int fps = fpsSpinner.getSelectedItemPosition() == 1 ? 30 : 24;
         String name = projectName.getText().toString().trim();
         if (name.isEmpty()) name = "NRD Video";
-        String safeName = name.replaceAll("[^a-zA-Z0-9_-]+", "-").replaceAll("(^-+|-+$)", "");
-        if (safeName.isEmpty()) safeName = "NRD-Video";
+        String safeName = RenderPlan.safeFileName(name, "NRD-Video");
 
         File outputDir = new File(getCacheDir(), "nrd-exports");
         if (!outputDir.exists() && !outputDir.mkdirs()) {

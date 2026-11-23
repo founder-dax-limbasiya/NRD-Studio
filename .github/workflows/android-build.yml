@@ -44,11 +44,14 @@ jobs:
 
       - name: Launch app on Android 14 emulator
         uses: reactivecircus/android-emulator-runner@v2
+        env:
+          ANDROID_I_WANT_MY_TCG: "yes"
         with:
           api-level: 34
           arch: x86_64
           profile: pixel_2
-          emulator-boot-timeout: 300
+          emulator-boot-timeout: 600
+          disable-linux-hw-accel: true
           disable-animations: true
           script: |
             set -euo pipefail

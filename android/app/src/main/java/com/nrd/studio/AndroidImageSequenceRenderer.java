@@ -22,6 +22,7 @@ import androidx.media3.transformer.ProgressHolder;
 import androidx.media3.transformer.Transformer;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -171,12 +172,7 @@ public final class AndroidImageSequenceRenderer {
                             outputFile.delete();
                         }
                         if (callback != null) {
-                            callback.onError(
-                                    exception.getMessage() == null
-                                            ? "The phone could not finish this export."
-                                            : exception.getMessage(),
-                                    cancelRequested
-                            );
+                            callback.onError(userFacingError(exception), cancelRequested);
                         }
                     }
                 })
@@ -227,6 +223,18 @@ public final class AndroidImageSequenceRenderer {
             }
         };
         mainHandler.post(progressTask);
+    }
+
+    private String userFacingError(ExportException exception) {
+        for (Throwable cause = exception; cause != null; cause = cause.getCause()) {
+            if (cause instanceof SecurityException || cause instanceof FileNotFoundException) {
+                return "NRD could not access one of the selected images. Remove it, add it again, and retry.";
+            }
+        }
+        String message = exception.getMessage();
+        return message == null || message.trim().isEmpty()
+                ? "The phone could not finish this export."
+                : message;
     }
 
     private void finishProgressPolling() {

@@ -1,6 +1,8 @@
 package com.nrd.studio;
 
 import android.content.Context;
+
+import androidx.annotation.OptIn;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
@@ -30,7 +32,7 @@ import java.util.List;
  * This first native implementation creates a silent video sequence. Audio mixing,
  * transitions and background/resumable jobs are separate follow-up milestones.
  */
-@UnstableApi
+@OptIn(markerClass = UnstableApi.class)
 public final class AndroidImageSequenceRenderer {
     public interface Callback {
         void onProgress(int percent);
